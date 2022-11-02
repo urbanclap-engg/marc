@@ -1,9 +1,10 @@
 # Marc
 
-What is `MARC` all about, and why we opensourced it.
+A framework to build and deploy microservices in javascript/typescript with minimal config changes.
+Marc encapsulates all necessary components for - logging, monitoring, service discovery, caching, db connectivity, credential management, etc. It helps bring down weeks of effort to a couple of hours.
 
 ## Latest version
-You can check latest version of Marc [here](https://www.npmjs.com/package/@uc-engg/openapi-rpc-node).
+You can check latest version of Marc [here](https://www.npmjs.com/package/@uc-engg/marc).
 
 ## Features
 
