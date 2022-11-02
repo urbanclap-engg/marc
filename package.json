@@ -14,7 +14,7 @@
     "test": "jest",
     "unit": "jest --config=jest_config.js --runInBand",
     "prepare": "rm -rf dist && npx tsc",
-    "postinstall": "node dist/scripts/post_install/index.js",
+    "postinstall": "npm run prepare && node dist/scripts/post_install/index.js",
     "validatedependency": "node dist/scripts/validate_dependency/index.js"
   },
   "keywords": [
