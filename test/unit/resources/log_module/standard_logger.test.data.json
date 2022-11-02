@@ -1,0 +1,73 @@
+{
+  "api": {
+    "success": {
+      "response": {
+        "req": {
+          "headers": {
+            "x-device-os": "android",
+            "user-agent": "Dalvik/2.1.0 (Linux; U; Android 9; RMX1805 Build/PKQ1.190319.001)"
+          },
+          "trxn_id": "bfee1af3f3e083834ec6064d36d91d6d",
+          "originalUrl": "/api/v1/providers/locationpollinbulk",
+          "baseUrl": "",
+          "method": "POST",
+          "route": {
+            "path": "/api/v1/providers/locationpollinbulk"
+          }
+        }
+      },
+      "extra": {
+        "statusCode":"200", 
+        "logType": "rpc_client",
+        "device": "ios"
+      }
+    },
+    "failure": {
+      "response": {
+        "req": {
+          "headers": {
+            "x-device-os": "android",
+            "user-agent": "Dalvik/2.1.0 (Linux; U; Android 9; RMX1805 Build/PKQ1.190319.001)"
+          },
+          "trxn_id": "bfee1af3f3e083834ec6064d36d91d6d",
+          "originalUrl": "/api/v1/providers/locationpollinbulk",
+          "baseUrl": "",
+          "method": "POST",
+          "route": {
+            "path": "/api/v1/providers/locationpollinbulk"
+          }
+        }
+      },
+      "extra": {
+        "statusCode":"500", 
+        "logType": "rpc_server_response"
+      },
+      "error": {
+        "message": "Lead is closed",
+        "stack": "Error stack[]"
+      }
+    }
+  },
+  "service": {
+    "dataWithValidSchema": {
+      "build_version": "91",
+      "container_id": "93103b418750",
+      "container_ip": "172.32.28.107",
+      "container_port": 1896,
+      "key_1": "providerId",
+      "key_1_value": "5b308860ba63112100a1a9c3",
+      "method_name": "getCalenderFreezeQuestionsForDateSlot_1",
+      "service_port": 8085
+    },
+    "dataWithInvalidSchema": {
+      "build_version": "91",
+      "container_id": "93103b418750",
+      "container_ip": "172.32.28.107",
+      "container_port": 1896,
+      "key_1": "providerId",
+      "key_1_value": "5b308860ba63112100a1a9c3",
+      "method_name": "getCalenderFreezeQuestionsForDateSlot_1",
+      "servicePort": 8085
+    }
+  }
+}

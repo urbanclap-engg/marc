@@ -1,0 +1,29 @@
+{
+  "compilerOptions": {
+    "target": "ES2020",
+    "module": "commonjs",
+    "sourceMap": false,
+    "lib": ["ES2020"],
+    "rootDir": ".",
+    "outDir": "./dist",
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "alwaysStrict": false, // till all modules are refactored
+    "allowJs": true,  // Till complete TS conversion
+    "baseUrl": ".",
+    "paths": {
+      "*": [
+        "node_modules/"
+      ],
+      "typings/*": [
+        "src/typings/*"
+      ]
+    }
+  },
+  "include": [
+    "*", "./**/*"
+  ],
+  "exclude": [
+    "./test", "./dist", "./node_modules"
+  ]
+}

@@ -1,0 +1,122 @@
+{
+    "push_logs": {
+        "service_name": "logging-service",
+        "api_name": "pushLogs",
+        "body": {
+            "source_id": "test-ui",
+            "log_level": "info",
+            "log_data": {
+                "message": "push_logs"
+            }
+        },
+        "response": {
+            "status": "ok"
+        }
+    },
+    "push_wrong_source": {
+        "service_name": "logging-service",
+        "api_name": "pushLogs",
+        "body": {
+            "source_id": "test-i",
+            "log_level": "info",
+            "log_data": {
+                "message": "push_wrong_source"
+            }
+        },
+        "response": {
+            "err_type": "rpc_request_invalid_error",
+            "err_message": ".source_id should be equal to one of the allowed values"
+        }
+    },
+    "push_wrong_body": {
+        "service_name": "logging-service",
+        "api_name": "pushLogs",
+        "body": {
+            "source_id": "test-ui",
+            "log_level": "info",
+            "log_data": {
+                "message": "push_wrong_body"
+            }
+        },
+        "response": {
+            "err_type": "rpc_request_invalid_error",
+            "err_message": ".log_data should NOT have additional properties"
+        }
+    },
+    "push_logs_async_failure": {
+      "service_name": "logging-service",
+      "api_name": "pushLogs",
+      "body": {
+        "source_id": "test-ui",
+        "log_level": "info",
+        "log_data": {
+          "message": "push_logs"
+        }
+      },
+      "response": {
+        "err_type": "rpc_internal_server_error",
+        "err_message": "event_producer is not initialised. Add enable_async_api_queue as true in dependency config options."
+      }
+    },
+    "push_logs_async_success": {
+      "service_name": "logging-service",
+      "api_name": "pushLogs",
+      "body": {
+        "source_id": "test-ui",
+        "log_level": "info",
+        "log_data": {
+          "message": "push_logs"
+        }
+      },
+      "response": {
+        "status": "ok"
+      }
+    },
+    "push_logs_async_success_priority": {
+      "service_name": "logging-service",
+      "api_name": "pushLogs",
+      "body": {
+        "source_id": "test-ui",
+        "log_level": "info",
+        "log_data": {
+          "message": "push_logs"
+        },
+        "event_priority": "medium"
+      },
+      "response": {
+        "status": "ok"
+      }
+    },
+    "push_logs_async_failure_invalid_priority_1": {
+      "service_name": "logging-service",
+      "api_name": "pushLogs",
+      "body": {
+        "source_id": "test-ui",
+        "log_level": "info",
+        "log_data": {
+          "message": "push_logs"
+        },
+        "event_priority": "low"
+      },
+      "response": {
+        "err_type": "rpc_internal_server_error",
+        "err_message": "low is not a valid event_priority"
+      }
+    },
+    "push_logs_async_failure_invalid_priority_2": {
+      "service_name": "logging-service",
+      "api_name": "pushLogs",
+      "body": {
+        "source_id": "test-ui",
+        "log_level": "info",
+        "log_data": {
+          "message": "push_logs"
+        },
+        "event_priority": ""
+      },
+      "response": {
+        "err_type": "rpc_internal_server_error",
+        "err_message": " is not a valid event_priority"
+      }
+    }
+}

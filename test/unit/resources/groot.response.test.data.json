@@ -1,0 +1,17 @@
+{
+  "Order Id": {
+    "value": "Order Id"
+  },
+  "Order Date": {
+    "value": "Order Date"
+  },
+  "Last Updated On {{time}}": {
+    "value": "Last Updated On {{time}}"
+  },
+  "Order Status": {
+    "value": "Order Status"
+  },
+  "View Order Details": {
+    "value": "View Order Details"
+  }
+}

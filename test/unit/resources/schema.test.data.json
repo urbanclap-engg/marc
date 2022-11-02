@@ -1,0 +1,221 @@
+{
+  "CorrectSchema": {
+    "swagger": "2.0",
+    "basePath": "/logging-service",
+    "info": {
+      "description": "test schema",
+      "version": "0",
+      "title": "test schema"
+    },
+    "paths": {
+      "/methodX": {
+        "post": {
+          "summary": "test api",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Request body for test method.",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/request"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Response body for pushLogs",
+              "schema": {
+                "$ref": "#/definitions/response"
+              }
+            }
+          }
+        }
+      },
+      "/moduleA/methodX": {
+        "post": {
+          "summary": "test api",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Request body for test method.",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/request"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Response body for pushLogs",
+              "schema": {
+                "$ref": "#/definitions/response"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "response": {
+        "type": "object"
+      },
+      "request": {
+        "type": "object"
+      }
+    }
+  },
+  "SchemaWithMoreThanTwoGroups": {
+    "swagger": "2.0",
+    "basePath": "/logging-service",
+    "info": {
+      "description": "test schema",
+      "version": "0",
+      "title": "test schema"
+    },
+    "paths": {
+      "/methodX": {
+        "post": {
+          "summary": "test api",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Request body for test method.",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/request"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Response body for pushLogs",
+              "schema": {
+                "$ref": "#/definitions/response"
+              }
+            }
+          }
+        }
+      },
+      "/moduleA/methodX": {
+        "post": {
+          "summary": "test api",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Request body for test method.",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/request"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Response body for pushLogs",
+              "schema": {
+                "$ref": "#/definitions/response"
+              }
+            }
+          }
+        }
+      },
+      "/moduleA/moduleB/methodX/methodY": {
+        "post": {
+          "summary": "test api",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Request body for test method.",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/request"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Response body for pushLogs",
+              "schema": {
+                "$ref": "#/definitions/response"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "response": {
+        "type": "object"
+      },
+      "request": {
+        "type": "object"
+      }
+    }
+  },
+  "SchemaWithMethodNotImplemented": {
+    "swagger": "2.0",
+    "basePath": "/logging-service",
+    "info": {
+      "description": "test schema",
+      "version": "0",
+      "title": "test schema"
+    },
+    "paths": {
+      "/notImplementedMethod": {
+        "post": {
+          "summary": "test api",
+          "consumes": [
+            "application/json"
+          ],
+          "parameters": [
+            {
+              "in": "body",
+              "name": "body",
+              "description": "Request body for test method.",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/request"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Response body for pushLogs",
+              "schema": {
+                "$ref": "#/definitions/response"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": {
+      "response": {
+        "type": "object"
+      },
+      "request": {
+        "type": "object"
+      }
+    }
+  }
+}
