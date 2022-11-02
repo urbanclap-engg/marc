@@ -1,6 +1,6 @@
 {
   "name": "@uc-engg/marc",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "An RPC framework for node using express",
   "main": "dist/index.js",
   "repository": {
@@ -14,7 +14,7 @@
     "test": "jest",
     "unit": "jest --config=jest_config.js --runInBand",
     "prepare": "rm -rf dist && npx tsc",
-    "postinstall": "npm run prepare && node dist/scripts/post_install/index.js",
+    "postinstall": "npx tsc && node dist/scripts/post_install/index.js",
     "validatedependency": "node dist/scripts/validate_dependency/index.js"
   },
   "keywords": [
