@@ -1,0 +1,151 @@
+{
+  "dependency-config": {
+    "type": "rpc_config",
+    "value": {
+      "ID": {
+        "INTERNAL_SERVICE": {
+          "test-service-1": "test-service-1",
+          "test-service-2": "test-service-2"
+        },
+        "MONGODB": {
+          "mongo_test": "mongo_test"
+        },
+        "MYSQL": {
+          "test-mysql-1": "test-mysql-1",
+          "test-mysql-2": "test-mysql-2"
+        },
+        "REDSHIFT": {
+          "test-redshift-1": "test-redshift-1",
+          "test-redshift-2": "test-redshift-2"
+        },
+        "SNOWFLAKE": {
+          "test-snowflake-1": "test-snowflake-1",
+          "test-snowflake-2": "test-snowflake-2"
+        },
+        "ELASTICSEARCH": {
+          "test-elasticsearch-1": "test-elasticsearch-1",
+          "test-elasticsearch-2": "test-elasticsearch-2"
+        },
+        "KAFKA": {
+          "event_producer": "event_producer",
+          "event_consumer": "event_consumer",
+          "event_producer_data": "event_producer_data",
+          "event_consumer_data": "event_consumer_data"
+        },
+        "CACHE": {
+          "cache_platform": "cache_platform"
+        },
+        "auth_service": "auth_service",
+        "media_utils": "media_utils",
+        "event_producer": "event_producer",
+        "event_consumer": "event_consumer",
+        "avro_event_producer": "avro_event_producer",
+        "distributed_lock_manager": "distributed_lock_manager",
+        "feature_config_manager": "feature_config_manager",
+        "localization": "localization",
+        "coachmarks": "coachmarks",
+        "AuditContext": "AuditContext",
+        "AuditContextConstants": "AuditContextConstants",
+        "application_metrics": "application_metrics",
+        "rate_limit": "rate_limit",
+        "load_shed": "load_shed"
+      },
+      "SLACK_ALERT_CHANNEL": "#test-channel",
+      "TYPE": {
+        "AUDIT_CONTEXT": "audit_context",
+        "EVENT_PRODUCER": "event_producer",
+        "EVENT_CONSUMER": "event_consumer",
+        "CACHE": "cache",
+        "REDSHIFT": "redshift",
+        "ELASTICSEARCH": "elasticsearch",
+        "DISTRIBUTED_LOCK_MANAGER": "distributed_lock_manager",
+        "FEATURE_CONFIG_MANAGER": "feature_config_manager",
+        "AUTH_SERVICE": "auth_service",
+        "MEDIA_UTILS": "media_utils",
+        "OPTIONS": "options",
+        "LOCALIZATION": "localization",
+        "COACHMARKS": "coachmarks",
+        "RATE_LIMIT": "rate_limit"
+      }
+    }
+},
+"cms-config": {
+    "type": "rpc_config",
+    "value": {
+        "VAULT_CONFIG": {
+            "VAULT_TOKEN_URL": "getVaultToken?client_id",
+            "SOURCE": "platform-config-service"
+        },
+        "SLACK_ALERT_CHANNEL": "#test-channel",
+        "GLOBAL_CREDENTIALS_FOLDER_NAME": "test_folder",
+        "SERVICE_CREDENTIALS_PATH": "credentials",
+        "GLOBAL_CREDENTIALS_PATH": "credentials.test_folder"
+    }
+},
+"workflow-config": {
+    "type": "rpc_config",
+    "value": {
+        "DEFAULT_ALERT_CHANNEL": "#test-alerts"
+    }
+},
+"gateway-config": {
+    "type": "rpc_config",
+    "value": {
+        "CONFIG_PATH": "/configs/gateway.config",
+        "MIDDLEWARE": {
+            "CLIENT_AUTHORISATION": {
+                "RESOURCE": {
+                    "CUSTOMER_REQUEST": "customer_request",
+                    "PROVIDER_LEAD": "provider_lead"
+                }
+            },
+            "AUTH_METHOD": {
+                "CLIENT_AUTHENTICATION": "client_authentication",
+                "CLIENT_AUTHORISATION": "client_authorisation",
+                "CAPTCHA_AUTHENTICATION": "captcha_authentication",
+                "GOOGLE_AUTHENTICATION": "google_authentication"
+            },
+            "TYPE": {
+                "AUTH": "auth",
+                "MULTIPART": "multipart",
+                "LOCALISATION": "localisation"
+            }
+        },
+        "API": "api",
+        "DASHBOARD_API": "dashboard-api",
+        "PROVIDER_TYPES": {
+            "OWNER": "owner",
+            "COOWNER": "coOwner",
+            "OPERATOR": "operator",
+            "CAPTAIN": "captain",
+            "PARTNER": "partner",
+            "HELPER": "helper",
+            "INDIVIDUAL": "individual",
+            "AGGREGATOR": "aggregator"
+        }
+    }
+},
+"pcs-config": {
+    "type": "rpc_config",
+    "value": {
+        "URI": "localhost:80"
+    }
+ },
+ "slack-config": {
+   "type": "rpc_config",
+   "value": {
+    "API": {
+      "POST_MESSAGE": "https://slack.com/api/chat.postMessage",
+      "WEB_HOOK": "https://hooks.slack.com/services/SGDGDDF"
+    }
+   }
+ },
+ "profiler-config": {
+  "type": "rpc_config",
+  "value": {
+      "S3_PROFILE_BUCKET": "profiling-data",
+      "S3_PROFILE_BUCKET_URL": "sample_url",
+      "AWS_REGION": "sample-region"
+  }
+}
+}

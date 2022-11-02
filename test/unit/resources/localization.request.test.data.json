@@ -1,0 +1,58 @@
+{
+  "orders": [
+    {
+      "template_type": "order_history",
+      "model_type": "order_history_model",
+      "order_id_label": "#groot Order Id??::source=inventory-service&&& groot#",
+      "order_id": "SL-173294",
+      "order_date_str": "#groot Order Date??::source=service-market&&& groot#",
+      "order_date": "31 January 2020",
+      "amount": "305.00",
+      "payment_mode": "Cash On Delivery",
+      "last_updated_str": "#groot Last Updated On {{time}}??::time=5 PM&&&source=service-market&&&context=context of Last Updated on&&& groot#",
+      "last_updated": "31-1-2020, 6:46 pm",
+      "status": {
+        "display_label": "#groot Order Status??::source=service-market&&&context=context of Order Status&&& groot#",
+        "display_text": "In Transit",
+        "display_color": "#000000"
+      },
+      "action": {
+        "type": "inapp",
+        "cta_text": {
+          "display_text": "#groot View Order Details??::source=service-market&&&context=context of View Order Details&&& groot#",
+          "display_color": "#304ffe",
+          "background_color": "#F2F8FF"
+        },
+        "key": "order_details"
+      },
+      "level2":{
+        "level3":{
+          "level4":{
+            "level5":{
+              "level6":{
+                "level7":{
+                  "level8":{
+                    "level9":{
+                      "level10":{
+                        "level11":{
+                          "level12":{
+                            "level13":{
+                              "nested_text_14": "#groot Nested text 14??::source=inventory-service&&& groot#",
+                              "level14":{
+                                "nested_text_15": "#groot Nested text 15??::source=inventory-service&&& groot#"
+                              }
+                            }
+                          }
+                        }
+                      }
+                    }
+                  }
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  ]
+}

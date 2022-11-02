@@ -1,0 +1,11 @@
+{
+  "logging-service": {
+  "swagger": "2.0",
+  "basePath": "/logging-service",
+  "info": {
+    "description": "Push logs to ELK.",
+    "version": "0",
+    "title": "LoggingService"
+  }
+  }
+}
