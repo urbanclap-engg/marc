@@ -1,6 +1,6 @@
 {
   "name": "@uc-engg/marc",
-  "version": "1.0.1",
+  "version": "1.0.2",
   "description": "An RPC framework for node using express",
   "main": "dist/index.js",
   "repository": {
