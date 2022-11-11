@@ -1,7 +1,7 @@
 
 
 
-Your Microservice application requires certain standard config files that openapi-rpc reads for fucntionalities like - service and database dependency, enabling vault or credentials.json file as a secret store. Let's go over these config files in detail. Microservices created via Marc are node 14 compatible. 
+Your Microservice application requires certain standard config files that marc reads for fucntionalities like - service and database dependency, enabling vault or credentials.json file as a secret store. Let's go over these config files in detail. Microservices created via Marc are node 14 compatible. 
 
 ## Create apis in your service
 Creating business logic in a new microservice is pretty easy with Marc. Need a few configurations and you are ready to run your service on your machine!
@@ -63,11 +63,11 @@ Now that service discovery and schema are in place, we can initialise the expres
 ```Javascript
 'use strict';
 
-const RPCFramework = require('@uc-engg/openapi-rpc-node');
+const RPCFramework = require('@uc-engg/marc');
 
 RPCFramework.initService();
 ```
-As openapi-rpc picks service details from `package.json` with the below information, there is some additional configs you need to ensure:
+Since marc picks service details from `package.json` with the below information, there is some additional configs you need to ensure:
 
   ```json
   {
@@ -161,7 +161,7 @@ You have to create a new config file in this path: configs/dependency.config.ts 
 'use strict';
 
 const Sequelize = require('sequelize');
-const DEPENDENCY = require('@uc-engg/openapi-rpc-node').getDependencyConfig();
+const DEPENDENCY = require('@uc-engg/marc').getDependencyConfig();
 
 let Config: DependencyConfigType = {
   service: {
