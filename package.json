@@ -32,7 +32,7 @@
     "@newrelic/native-metrics": "^4.0.0",
     "@uc-engg/armor": "^1.0.0",
     "@types/babel__traverse": "7.0.8",
-    "@uc-engg/securitas": "^1.0.7",
+    "@uc-engg/securitas": "^1.0.0",
     "agentkeepalive": "4.1.4",
     "aws-sdk": "2.846.0",
     "aws4": "^1.8.0",
@@ -77,10 +77,10 @@
     "@uc-engg/openapi-validator-middleware": "^1.0.0"
   },
   "devDependencies": {
-    "@types/node": "^14.0.0",
-    "@types/jest": "^24.0.0",
-    "@types/lodash": "^4.14.182",
-    "@types/aws4": "^1.11.2",
+    "@types/node": "14.0.0",
+    "@types/jest": "24.0.0",
+    "@types/lodash": "4.14.182",
+    "@types/aws4": "1.11.2",
     "husky": "3.1.0"
   },
   "typings": "marc.d.ts"
