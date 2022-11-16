@@ -289,9 +289,9 @@ If you are using credentials from file (instead of vault) then place a block lik
 
 ```Javascript
 {
-  "db_type": {
-    "db_cluster_name": {
-      "db_name": {
+  "<db_type>": {
+    "<db_cluster_name>": {
+      "<db_name>": {
         "readwrite": {
           "username": "sampleUser",
           "password": "samplePassword"
@@ -300,13 +300,13 @@ If you are using credentials from file (instead of vault) then place a block lik
     }
   }
 ```
-Use the same '<db_type>', '<db_cluster_name>' and '<db_name>' from above, replacing username & password with actual credentials.
-Now you can access database within your service like this
+Replace username & password with actual credentials and now you can access database within your service like this
 
 ```Javascript
+  const Singleton = require('@uc-engg/marc').getSingleton();
   let mongooseConnection = Singleton["mongodb_my_test_database"];
 ```
-All done with minimal pieces of code!
+All done with minimal code!
 
 ## Rate limit
 Rate limit provides functionality to limit calls to a microservice at `api`, `client` and `source` level. To configure this:
@@ -327,9 +327,10 @@ Rate limit provides functionality to limit calls to a microservice at `api`, `cl
     Config: Config
   };
   ```
-- Add rate_limit_config to `${microservice}.config.json`. It  can be configured in 2 ways:
+  Add rate_limit_config to `${microservice}.config.json`. It  can be configured in 2 ways:
   1. Configure static rate limit config
-    1.1 API Level
+    
+    ***API Level***
     ```JSON
       "rate_limit_config": {
         "useStaticConfig": true,
@@ -355,7 +356,7 @@ Rate limit provides functionality to limit calls to a microservice at `api`, `cl
         },
       }
     ```
-    1.2 Client Level
+    ***Client Level***
     ```JSON
       "rate_limit_config": {
         "useStaticConfig": true,
@@ -382,7 +383,7 @@ Rate limit provides functionality to limit calls to a microservice at `api`, `cl
         },
       }
     ```
-    1.3 Source Level
+    ***Source Level***
     ```JSON
   "rate_limit_config": {
     "useStaticConfig": true,
@@ -436,7 +437,7 @@ There are `two` type of profiling
 - **Cpu** CPU profiling is nothing more than collecting data about functions which are CPU consuming. And ideally, get a graphic representation of the collected data via `flame graph`. There are two types of CPU Profiling available which are 
 
  - **On Demand**
-  - **Continous**
+ - **Continous**
 
 - **Memory** - Memory profiling allows you to take snapshot of all the objects in the heap at a certain point in time. It shows how your  memory is distributed among objects. It helps you find potential inefficiencies and memory leaks in your programs.
 
