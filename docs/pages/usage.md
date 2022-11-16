@@ -1,26 +1,21 @@
-
-
-
-Your Microservice application requires certain standard config files that marc reads for fucntionalities like - service and database dependency, enabling vault or credentials.json file as a secret store. Let's go over these config files in detail. Microservices created via Marc are node 14 compatible. 
-
 ## Create apis in your service
 Creating business logic in a new microservice is pretty easy with Marc. Need a few configurations and you are ready to run your service on your machine!
 Checkout [Sample](https://github.com/urbanclap-engg/sample-service/blob/main/schema/service_schema.json).
 
 ### Define schema of your api
 
-`service_schema.json` is a JSON file that contains a detailed description your service APIs (like api path, request and response structure) that adheres to OpenAPI Specification.
+`service_schema.json` is a JSON file that contains a detailed description your service APIs (like api path, request and response structure) that adheres to [OpenAPI Specification](https://swagger.io/specification/v2/).
 This file is present at /schema/service_schema.json. 
+For reference, checkout sample-service's [service_schema.json](https://github.com/urbanclap-engg/sample-service/blob/main/schema/service_schema.json)
 
 ### Add service discovery block
 
 We use `global.config.json` to discover microservices/databses discovery. You need to put the service discovery block in `configs/global.config.json` so Marc can use service details for server startup.
 
-- Example
-Lets say there are two services sample-service-A & sample-service-B in your ecosystem then you need to define them like this:
+Lets say there are two services sample-service & sample-service-B in your ecosystem then you need to define them like this:
 ```json
 {
-  'sample-service-A': {
+  'sample-service': {
     discovery: {
       port: 1001,
       uri: localhost
@@ -36,7 +31,19 @@ Lets say there are two services sample-service-A & sample-service-B in your ecos
   }
 }
 ```
-Here uri is localhost, assuming the service is running on your machine as development server. For other configurations, checkout sample-service's configs/global.config.json.
+
+All the service names must be present in global.config.json like this:
+```json
+    "dependency-config": {
+        "type": "rpc_config",
+        "value": {
+            "ID": {
+                "INTERNAL_SERVICE": {
+                    "sample-service": "sample-service",
+                    "sample-service-B": "sample-service-B"
+                },
+```
+For other configurables checkout [here](https://github.com/urbanclap-engg/sample-service/blob/main/configs/global.config.json)
 
 ### Api definitions
 
@@ -71,15 +78,12 @@ Since marc picks service details from `package.json` with the below information,
 
   ```json
   {
-    "name": "<service-id>",
-    "main": "index",
-    "service_type": "<javascript or typescript>"
+    "name": "<service-name>",
+    "service_type": "typescript"
   }
   ```
 
 `name`: It should contain the SERVICE_ID which we used to write in server.js. It will now be picked from this key.
-
-`main`: This should contain the controller file path. Here controller file is the file exporting a list of API names mapped to its corresponding handlers. Refer here. Example: If the path for controller file is src/service/index.js, then 'main' should contain- "service/index".
 
 `service_type`: The `service_type` field is used to specify if the service is javascript or typescript, based on that we decide from where to pick the controller file (i.e. dist or src).
 
@@ -94,25 +98,13 @@ Voila! Your microservice is ready to run! Run your new microservice by `npm inst
 ## Service to service calls
 
 Lets see what all configurations we need to do to call a downstream service.
-### Whitelist new service
-Any new service that exists within the ecosystem needs to be whitelisted in global.config.json. Lets say there are two services that you need to interact with using Marc, then you can configure them like this:
 
-```json
-    "dependency-config": {
-        "type": "rpc_config",
-        "value": {
-            "ID": {
-                "INTERNAL_SERVICE": {
-                    "test-service-1": "test-service-1"
-                },
-                "AuditContext": "AuditContext",
-```
 ### Authenticate service calls
 
 `platform.config.json`  is a service specific config which defines the service initialization strategy. Eg -
 1. Credential Management (Vault vs local)
 2. Service Authorization (services allowed to call)
-3. Client service's schema management (how to get service's client swagger docs)
+3. Client service's schema management
 
 - Whitelist downstream services in `platform.config.json` like this:
 
@@ -123,6 +115,8 @@ Any new service that exists within the ecosystem needs to be whitelisted in glob
   ]
 }
 ```
+If sample-service calls sample-service-B, then this config should be added to sample-service-B's configs/platform.config.json
+
 ### Update dependency config
 
 <h1 align="left">
@@ -130,11 +124,7 @@ Any new service that exists within the ecosystem needs to be whitelisted in glob
     <br>
 </h1>
 
-`Dependency types`: Give the type of dependency that the service/script requires. Given below is the list of all dependency types
-
-  - MONGODB
-  - MYSQL
-  - INTERNAL_SERVICE
+Client services will configure their dependencies in this file. Dependencies can be another service, database etc.
 
 
 List of dependency types can be accessed in dependency.config.ts file through 
@@ -155,7 +145,7 @@ You have to create a new config file in this path: configs/dependency.config.ts 
 }
 ```
 
-  Example of a dependency.config.ts file
+  Example of a dependency.config.js file
 ```Javascript
 
 'use strict';
@@ -165,32 +155,9 @@ const DEPENDENCY = require('@uc-engg/marc').getDependencyConfig();
 
 let Config: DependencyConfigType = {
   service: {
-    [DEPENDENCY.TYPE.MONGODB]: [
-      {
-        id: DEPENDENCY.ID.MONGODB.mongodb_my_test_database,
-        mongoose_options: {
-          autoIndex: false,
-          reconnectTries: Number.MAX_VALUE,
-          reconnectInterval: 500,
-          poolSize: 10,
-          bufferMaxEntries: 0
-        }
-      }
-    ],
-    [DEPENDENCY.TYPE.MYSQL]: [
-      {
-        id: DEPENDENCY.ID.MYSQL.mysql_main_db,
-        sequelize_options: {
-          pool: { min: 2, max: 4, idle: 60000 },
-          isolationLevel: Sequelize.Transaction.ISOLATION_LEVELS.READ_UNCOMMITTED,
-          omitNull: true
-        },
-        sync: true
-      }
-    ],
     [DEPENDENCY.TYPE.INTERNAL_SERVICE]: [
       {
-        id: DEPENDENCY.ID.INTERNAL_SERVICE.sample-service,
+        id: DEPENDENCY.ID.INTERNAL_SERVICE["sample-service-B"],
         version: 0
       }
     ]
@@ -201,11 +168,11 @@ module.exports = {
 };
 ```
 
-### Update dependency's schema
+### Specify downstream services’ schema
 
-`dependency_schemas.json` This file contains swagger docs of both the service and its downstream microservice clients. This file could be built in couple of ways as mentioned below:
+`dependency_schemas.json` This file contains schema of both the service and its downstream microservices. This file could be built in couple of ways as mentioned below:
 
-  - [**Default**] Write a custom logic to create this file and configure its location to be picked by the library. By default, dependency_schemas.json is kept at the service's root directory i.e. <service-name>/dependency_schemas.json
+  - [**Default**] By default, we need to write a logic to create this file and configure its location to be picked by the library.
   If you are going with custom logic, then configure it in platform.config.js file as shown below.
 
 ```json
@@ -240,10 +207,10 @@ module.exports = {
 
 ```Javascript
   const Singleton = require('@uc-engg/marc').getSingleton();
-  const sampleService = Singleton["sample-service"];
+  const sampleServiceB = Singleton["sample-service-B"];
 
   const testServiceApi = async () => {
-    return await sampleService.testApi();
+    return await sampleServiceB.testApi();
   };
 ```
 Singleton object here is a compiled object of all its dependencies
@@ -307,7 +274,7 @@ Just like we whitelisted a service, we must also whitelist a database cluster th
 }
 ```
 
-### Configure dependency config
+### Update dependency.config.js
 
 Add database dependency to your service's config like this:
 
