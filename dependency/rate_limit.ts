@@ -71,7 +71,7 @@ export const RateLimit: any = {
       },
       "version": 0
     };
-    if (!RPCFramework.getSingleton()[ScriptConstants.PLATFORM_CONFIG_SERVICE]) {
+    if (!params.options.useStaticConfig && !RPCFramework.getSingleton()[ScriptConstants.PLATFORM_CONFIG_SERVICE]) {
       /*
        Initialize platform-config-service client if dependency is not
         already initialized via dependency.config.js
