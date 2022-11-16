@@ -10,7 +10,7 @@ For reference, checkout sample-service's [service_schema.json](https://github.co
 
 ### Add service discovery block
 
-We use `global.config.json` to discover microservices/databses discovery. You need to put the service discovery block in `configs/global.config.json` so Marc can use service details for server startup.
+We use `global.config.json` to discover microservices/databases discovery. You need to put the service discovery block in `configs/global.config.json` so Marc can use service details for server startup.
 
 Lets say there are two services sample-service & sample-service-B in your ecosystem then you need to define them like this:
 ```json
@@ -173,7 +173,6 @@ module.exports = {
 `dependency_schemas.json` This file contains schema of both the service and its downstream microservices. This file could be built in couple of ways as mentioned below:
 
   - [**Default**] By default, we need to write a logic to create this file and configure its location to be picked by the library.
-  If you are going with custom logic, then configure it in platform.config.js file as shown below.
 
 ```json
     {
@@ -224,7 +223,7 @@ Now that service to service calls are sorted, lets check how to connect to a dat
 There are majorly two parts to configure database discovery from a service, lets go through both of them to see how we can connect to a database.
 
 - Database to cluster mapping
-  Each DB has a unique ID and you would refer to it with this `ID` in your codebase too. It would be of this format: <db_type>_<db_name>. For example, if you are connecting to `my_test_database` database in MongoDB, then the global config should have this key `mongodb_my_test_database`.
+  Each DB has a unique ID and you would refer to it with this `ID` in your codebase too. It would be of this format: `<db_type>_<db_name>`. For example, if you are connecting to `my_test_database` database in MongoDB, then the global config should have this key `mongodb_my_test_database`.
 
 ```json
   {
@@ -256,7 +255,7 @@ Add below block in configs/global.config.json to connect your service with datab
     }
   }
 ```
-The connection string here will be used at service startup time to connect to the databse. Placeholders  '__username__' & '__password__' are intentional they are supposed to be kept as is.
+The connection string here will be used at service startup time to connect to the database. Placeholders  '__username__' & '__password__' are intentional they are supposed to be kept as is.
 ### Whitelist new database cluster
 
 Just like we whitelisted a service, we must also whitelist a database cluster that we are about to use. Sample on how to do it:
@@ -291,7 +290,7 @@ If you are using credentials from file (instead of vault) then place a block lik
 ```Javascript
 {
   "db_type": {
-    "cluster_name": {
+    "db_cluster_name": {
       "db_name": {
         "readwrite": {
           "username": "sampleUser",
@@ -301,7 +300,7 @@ If you are using credentials from file (instead of vault) then place a block lik
     }
   }
 ```
-
+Use the same '<db_type>', '<db_cluster_name>' and '<db_name>' from above, replacing username & password with actual credentials.
 Now you can access database within your service like this
 
 ```Javascript
@@ -311,8 +310,10 @@ All done with minimal pieces of code!
 
 ## Rate limit
 Rate limit provides functionality to limit calls to a microservice at `api`, `client` and `source` level. To configure this:
-- Add rate limit dependency in `dependency.config.ts`
+- Add rate limit dependency in `dependency.config.js`
   ```Javascript
+  const Singleton = require('@uc-engg/marc').getSingleton();
+  const RPC_CONFIG = Singleton.Config;
   let Config = {
     service: {
       [DEPENDENCY.TYPE.RATE_LIMIT]: [{
@@ -335,11 +336,11 @@ Rate limit provides functionality to limit calls to a microservice at `api`, `cl
         "rateLimitPolicy": {
           "uid": "123",
           "serviceType": "microservice",
-          "serviceId": "test-service",
+          "serviceId": "sample-service",
           "rateLimits": [
             {
               "attribute": "api",
-              "key": "/test/getData",
+              "key": "/testApi",
               "requestLimit": 100
             },
             {
@@ -361,11 +362,11 @@ Rate limit provides functionality to limit calls to a microservice at `api`, `cl
         "rateLimitPolicy": {
           "uid": "123",
           "serviceType": "microservice",
-          "serviceId": "test-service",
+          "serviceId": "sample-service",
           "rateLimits": [
             {
               "attribute": "api",
-              "key": "/test/getData",
+              "key": "/testApi",
               "rateLimits": [
                 {
                   "attribute": "client",
@@ -388,11 +389,11 @@ Rate limit provides functionality to limit calls to a microservice at `api`, `cl
     "rateLimitPolicy": {
       "uid": "123",
       "serviceType": "microservice",
-      "serviceId": "test-service",
+      "serviceId": "sample-service",
       "rateLimits": [
         {
           "attribute": "api",
-          "key": "/test/getData",
+          "key": "/testApi",
           "rateLimits": [
             {
               "attribute": "client",
@@ -440,9 +441,9 @@ There are `two` type of profiling
 - **Memory** - Memory profiling allows you to take snapshot of all the objects in the heap at a certain point in time. It shows how your  memory is distributed among objects. It helps you find potential inefficiencies and memory leaks in your programs.
 
 #### CPU Profiling
-1. **On Demand** - To perform `On-demand CPU Profiling` you to have to hit the following URL and profiled data will get uploaded to `s3 AWS storage` after  desired time you will receive a URL from where you can download your file or if the service is running on local a file will get created in local.
+1. **On Demand** - To perform `On-demand CPU Profiling` you to have to hit the following URL and profiled data will get uploaded to `s3 AWS storage` after  desired time you will receive a URL from where you can download your file.
 
-  **URL**  `http://localhost:1002/triggerProfile`
+  **URL**  `http://localhost:1002/triggerProfiler`
 
 
 ```json
@@ -464,9 +465,9 @@ export CONTINUOUS_PROFILER_SERVICE_NAME="$SERVICE_ID-$ENV-$container_id"
 Send new deployment and for visualization open `https://console.cloud.google.com/profiler/`. Profiling will continue for all the containers till the time we revert our changes and send a new deployment
 
 #### Memory Profiling
-1. **On Demand** - To perform `On-demand memory Profiling` you to have to hit the following URL and you will receive a `S3 url` to download the dump file.
+1. **On Demand** - To perform `On-demand memory Profiling` you to have to hit the following URL and you will receive an `S3 url` to download the dump file, also you will get the file created at service directory.
 
-  **URL**  `http://localhost:1002/triggerProfile`
+  **URL**  `http://localhost:1002/triggerProfiler`
 
 
   **Body**

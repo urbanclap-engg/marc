@@ -11,7 +11,7 @@
 Openapi-rpc provides monitoring out of the box without requiring any line of code, to enable monitoring you just need to set one environment variable.
 
   ```
-  MYCROFT_MONITORING_ENABLED=true
+  export MYCROFT_MONITORING_ENABLED=true
   
   ```
 
