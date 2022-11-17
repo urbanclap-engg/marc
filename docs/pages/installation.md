@@ -11,7 +11,7 @@
 
 ### Installation
 
-Clone this sample NodeJS application built using openapi-rpc
+Clone this sample NodeJS application built using marc
 ```sh
 git clone https://github.com/urbanclap-engg/sample-service.git
 cd sample-service
