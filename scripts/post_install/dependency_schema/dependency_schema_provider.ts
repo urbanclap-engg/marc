@@ -28,9 +28,8 @@ const initConfig = () => {
     global_conf = JsonFile.readFileSync(globalConfigPath);
   }
 
-  PLATFORM_CONFIG_SERVICE_ENV_URI[process.env.NODE_ENV || 'default'] = `${global_conf[PLATFORM_CONFIG_SERVICE_ID].discovery.uri}:${global_conf[PLATFORM_CONFIG_SERVICE_ID].discovery.port}`
+  PLATFORM_CONFIG_SERVICE_ENV_URI[process.env.NODE_ENV || 'default'] = `${global_conf[PLATFORM_CONFIG_SERVICE_ID].discovery.uri}:${global_conf[PLATFORM_CONFIG_SERVICE_ID].discovery.port}`;
 }
-
 
 const getServiceSchema = (repo, branch, filePath, platformConfigServiceUri) => {
 
@@ -72,7 +71,15 @@ const fetchSchemaFromGitlab = async (repo, branch) => {
   const headers = { 'Content-Type': 'application/json', 'Private-Token': gitToken }
   const schemaJson = await ScriptUtils.sendGetRequest(url, { headers: headers });
   return schemaJson;
+}
 
+const fetchSchemaFromLocal = async (serviceName) => {
+  if(CURRENT_SERVICE_NAME != CONSTANTS.OARPC_SERVICE_NAME) {
+    const serviceSchemaJson = JsonFile.readFileSync(PATH.join(REPO_DIR_PATH, '..', serviceName, 'schema/service_schema.json'));
+    return serviceSchemaJson;
+  } else {
+    return {};
+  }
 }
 
 const getSchemaFromUCService = async (serviceName, branch, filePath) => {
@@ -124,7 +131,10 @@ const getCombinedSchemaObjects = async (serviceName, version, branch, retries, s
           case CONSTANTS.SCHEMA_SOURCE_TYPE.GITLAB:
             serviceSchema = await fetchSchemaFromGitlab(gitRepoName, branch);
             break;
-
+          case CONSTANTS.SCHEMA_SOURCE_TYPE.CUSTOM:
+            serviceSchema = await fetchSchemaFromLocal(serviceName);
+            console.log(serviceSchema);
+            break;
           default:
             serviceSchema = await getSchemaFromUCService(gitRepoName, branch, CONSTANTS.GIT_SCHEMA_FILE_PATH);
         }
@@ -148,14 +158,13 @@ const ServiceSchemaDtl = {
     let fetchSchemaPromises = [];
     let numRequests = 0;
     fetchReport.totalSchemasQueried = fetchReport.schemasFetched = 0;
-    const DEF_DEPENDENCY_SCHEMA_PATH = 'node_modules/dependency_schemas.json';
-    const schemaFilePath = _.get(DEPENDENCY_DETAILS, 'properties.generatedSchemaFilePath', DEF_DEPENDENCY_SCHEMA_PATH);
-    let DEPENDENCY_SCHEMA_SOURCE = _.get(DEPENDENCY_DETAILS, 'serviceDependencySchema.type', undefined);
-    if (DEPENDENCY_SCHEMA_SOURCE === CONSTANTS.SCHEMA_SOURCE_TYPE.CUSTOM){ 
-      console.log('defined custom logic to fetch dependency schema objects. skipping this...');
-      return;
+    const schemaFilePath = 'dependency_schemas.json';
+    
+    const DEPENDENCY_SCHEMA_SOURCE = _.get(DEPENDENCY_DETAILS, 'serviceDependencySchema.type');
+    if(!DEPENDENCY_SCHEMA_SOURCE) {
+      initConfig();
     }
-    initConfig();
+
     for (let i in dependentServices) {
       retries = CONSTANTS.MAX_REQUEST_RETRIES;
       numRequests++;

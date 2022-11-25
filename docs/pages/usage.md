@@ -172,15 +172,12 @@ module.exports = {
 
 `dependency_schemas.json` This file contains schema of both the service and its downstream microservices. This file could be built in couple of ways as mentioned below:
 
-  - [**Default**] By default, we need to write a logic to create this file and configure its location to be picked by the library.
+  - [**Custom**] If you want to fetch schemas from local, then this flow is automated by setting the below configuration in platform.config.js file given that all services should be in same folder on local.
 
 ```json
     {
       "serviceDependencySchema" : {
-      "type": "custom",
-      "properties": {
-        "generatedSchemaFilePath": "dependency_schemas.json",
-        }
+        "type": "custom"
       }
     }
 ```
@@ -192,7 +189,6 @@ module.exports = {
       "serviceDependencySchema" : {
       "type": "gitlab",
       "properties": {
-        "generatedSchemaFilePath": "dependency_schemas.json",
         "gitUri": "http://my.gitlab.location.com/",
         "gitToken": "<gitToken>",
         "gitGroupName": "<groupName-optional>"

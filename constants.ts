@@ -189,7 +189,7 @@ const constants: {[k:string]: any} = {
   CLIENT: {
     TIMING_PHASES: 'timingPhases',
     HTTP_AGENT_DEFAULT_OPTIONS: {
-      keepAlive: ServiceMetaDataUtil.getNodeVersion() >= 14 ? true : false,
+      keepAlive: parseFloat(ServiceMetaDataUtil.getNodeVersion()) >= 14 ? true : false,
       maxFreeSockets: 10,
       timeout: 30 * 1000, // active socket keepalive for 30 seconds
       freeSocketTimeout: 30 * 1000, // free socket keepalive for 30 seconds

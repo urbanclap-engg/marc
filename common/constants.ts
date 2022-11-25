@@ -15,3 +15,8 @@ export const PLATFORM_CONFIG = {
     FILE_NAME: 'platform.config.json',
     RELATIVE_PATH_FROM_ROOT: 'configs/platform.config.json'
 }
+
+export const CONFIG_SOURCE = {
+    REPO: 'Repo',
+    S3: 'S3'
+}

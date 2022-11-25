@@ -8,8 +8,7 @@ import path from 'path';
 const SERVICE_PARENT_DIR = _.split(RPC_CONSTANTS.REPO_DIR_PATH, 'node_modules')[0];
 
 const initDependencyClients = (Repo) => {
-  let platformConfig = ScriptUtils.getServicePlatformConfig();
-  let serviceDependencyPath = _.get(platformConfig, 'serviceDependencySchema.properties.generatedSchemaFilePath', 'node_modules/dependency_schemas.json');
+  let serviceDependencyPath = 'dependency_schemas.json';
 
   const dependencySchemas = require(path.join(SERVICE_PARENT_DIR + '/' + serviceDependencyPath));
   Object.keys(dependencySchemas).forEach((serviceId) => {

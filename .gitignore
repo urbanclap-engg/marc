@@ -17,3 +17,4 @@ types/*
 .global.config.json
 .event.config.json
 .data.event.config.json
+dependency_schemas.json
