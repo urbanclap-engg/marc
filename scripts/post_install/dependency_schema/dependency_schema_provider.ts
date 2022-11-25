@@ -28,11 +28,8 @@ const initConfig = () => {
     global_conf = JsonFile.readFileSync(globalConfigPath);
   }
 
-  if(DEPENDENCY_DETAILS.configSource == CONSTANTS.CONFIG_SOURCE.S3) {
-    PLATFORM_CONFIG_SERVICE_ENV_URI[process.env.NODE_ENV || 'default'] = `${global_conf[PLATFORM_CONFIG_SERVICE_ID].discovery.uri}:${global_conf[PLATFORM_CONFIG_SERVICE_ID].discovery.port}`;
-  }
+  PLATFORM_CONFIG_SERVICE_ENV_URI[process.env.NODE_ENV || 'default'] = `${global_conf[PLATFORM_CONFIG_SERVICE_ID].discovery.uri}:${global_conf[PLATFORM_CONFIG_SERVICE_ID].discovery.port}`;
 }
-
 
 const getServiceSchema = (repo, branch, filePath, platformConfigServiceUri) => {
 
@@ -165,8 +162,11 @@ const ServiceSchemaDtl = {
     let numRequests = 0;
     fetchReport.totalSchemasQueried = fetchReport.schemasFetched = 0;
     const schemaFilePath = 'dependency_schemas.json';
-
-    initConfig();
+    
+    const DEPENDENCY_SCHEMA_SOURCE = _.get(DEPENDENCY_DETAILS, 'serviceDependencySchema.type');
+    if(!DEPENDENCY_SCHEMA_SOURCE) {
+      initConfig();
+    }
 
     for (let i in dependentServices) {
       retries = CONSTANTS.MAX_REQUEST_RETRIES;
