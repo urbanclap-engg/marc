@@ -5,7 +5,8 @@
       "ID": {
         "INTERNAL_SERVICE": {
           "test-service-1": "test-service-1",
-          "test-service-2": "test-service-2"
+          "test-service-2": "test-service-2",
+          "sample-service": "sample-service"
         },
         "MONGODB": {
           "mongo_test": "mongo_test"

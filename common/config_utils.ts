@@ -1,7 +1,8 @@
 import _ from 'lodash';
 import path from 'path';
 import fs from 'fs';
-import { ENVIRONMENT, GLOBAL_CONFIG, OARPC_SERVICE_NAME, PLATFORM_CONFIG } from './constants';
+import { ENVIRONMENT, GLOBAL_CONFIG, OARPC_SERVICE_NAME, PLATFORM_CONFIG, CONFIG_SOURCE } from './constants';
+
 
 const mergeWithArrayAsLiteral = (destOject, srcObject) => {
   return _.mergeWith(destOject, srcObject, (objValue, srcValue) => {  if(Array.isArray(objValue) || Array.isArray(srcValue)) return srcValue });
@@ -24,7 +25,10 @@ export const ConfigUtils = {
     if(CURRENT_SERVICE_NAME == OARPC_SERVICE_NAME) {
       return path.join(REPO_DIR_PATH, '/test/configs/');
     }
-    return (process.env.NODE_ENV === 'staging' || process.env.NODE_ENV === 'production' ? 
+    const DEPENDENCY_DETAILS = require(path.join(REPO_DIR_PATH, CURRENT_SERVICE_NAME == OARPC_SERVICE_NAME ? 
+      'test/configs/platform.config.json' : PLATFORM_CONFIG.RELATIVE_PATH_FROM_ROOT));
+
+    return ((DEPENDENCY_DETAILS.configSource == CONFIG_SOURCE.S3 && (process.env.NODE_ENV === 'staging' || process.env.NODE_ENV === 'production')) ? 
             path.join(REPO_DIR_PATH, '/') : path.join(REPO_DIR_PATH, '/configs/'));
   },
   getPlatformConfigDir: () => {

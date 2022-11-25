@@ -5,7 +5,7 @@ const DEPENDENCY = require('../..').getDependencyConfig();
 let Config = {
     service: {
         [DEPENDENCY.TYPE.INTERNAL_SERVICE]: [{
-            id: DEPENDENCY.ID.INTERNAL_SERVICE['logging-service'],
+            id: DEPENDENCY.ID.INTERNAL_SERVICE['sample-service'],
             version: 0
         }]
     }

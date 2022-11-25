@@ -1,5 +1,3 @@
-'use strict'
-
 /*******
  * Utility to convert swagger schemas to type declaration files
  */
@@ -8,13 +6,19 @@ import path from 'path';
 import fs from 'fs';
 import { ScriptUtils } from '../../common/script-utils';
 import { ConfigUtils } from '../../../common/config_utils';
-const PARENT_SERVICE_PACKAGE_JSON = require(ConfigUtils.getParentWorkingDir() + '/package.json');
 import ServiceSchemaDtl from './dependency_schema_provider';
 import CONSTANTS from '../../common/constants';
+import { dependencyParser, globalConfigParser } from "./parse_config";
+
+const PARENT_SERVICE_PACKAGE_JSON = require(ConfigUtils.getParentWorkingDir() + '/package.json');
 const GLOBAL_CONFIG = CONSTANTS.GLOBAL_CONFIG;
 const MONOLITH_SERVICES = CONSTANTS.MONOLITH_SERVICES;
 const CURRENT_SERVICE_NAME = PARENT_SERVICE_PACKAGE_JSON.name;
-import { dependencyParser, globalConfigParser } from "./parse_config";
+const REPO_DIR_PATH = ConfigUtils.getParentWorkingDir();
+const DEPENDENCY_DETAILS = require(path.join(REPO_DIR_PATH, CURRENT_SERVICE_NAME == CONSTANTS.OARPC_SERVICE_NAME ? 
+  'test/configs/platform.config.json' : 'configs/platform.config.json'));
+const DEPENDENCY_SCHEMA_SOURCE = _.get(DEPENDENCY_DETAILS, 'serviceDependencySchema.type');
+
 
 // Temporary workaround till every service onboad dependency.config to ts
 let DEPENDENCY_CONFIG_PATH = ConfigUtils.getParentWorkingDir() + '/configs/dependency.config';
@@ -69,7 +73,9 @@ const fetchSchemasForOarpc = async () => {
 
 const fetchAndStoreSchemas = async (dependentServices: any) => {
   let report: {[k:string]: any} = {};
-  dependentServices = ScriptUtils.addOtherDependencies(dependentServices, CURRENT_SERVICE_NAME);
+  if(!DEPENDENCY_SCHEMA_SOURCE) {
+    dependentServices = ScriptUtils.addOtherDependencies(dependentServices, CURRENT_SERVICE_NAME);
+  }
   if (!dependentServices || _.isEmpty(dependentServices)) {
     const msg = `No dependent services found using the schema-decentralisation flow`;
     console.log(msg);
