@@ -74,10 +74,8 @@ const fetchSchemaFromGitlab = async (repo, branch) => {
 }
 
 const fetchSchemaFromLocal = async (serviceName) => {
-  console.log(serviceName);
   if(CURRENT_SERVICE_NAME != CONSTANTS.OARPC_SERVICE_NAME) {
     const serviceSchemaJson = JsonFile.readFileSync(PATH.join(REPO_DIR_PATH, '..', serviceName, 'schema/service_schema.json'));
-    console.log("noooo")
     return serviceSchemaJson;
   } else {
     return {};
@@ -134,7 +132,6 @@ const getCombinedSchemaObjects = async (serviceName, version, branch, retries, s
             serviceSchema = await fetchSchemaFromGitlab(gitRepoName, branch);
             break;
           case CONSTANTS.SCHEMA_SOURCE_TYPE.CUSTOM:
-            console.log("yessss..fetch schema for local");
             serviceSchema = await fetchSchemaFromLocal(serviceName);
             console.log(serviceSchema);
             break;
