@@ -492,7 +492,7 @@ If your service is running on local then a file will get created in local. S3 bu
 Cache is a high-speed data storage layer that stores a subset of data, typically transient, so that future requests for that data are served up faster than is possible by accessing the data’s primary storage location. Caching allows you to reuse previously retrieved or computed data efficiently. It is very tedious to onboard cache into service, and a lot of boilerplate code and configuration are needed. 
 We have an out-of-the-box caching solution, i.e. Flash, a library using Redis for in-memory central storage. It is built over `ioredis` so that services can onboard cache quickly and conveniently without writing boilerplate code. 
 ### Installation
-`Flash` is currently published at npm registry as  `@uc-engg/flash`, so to install it you need to set the registry as [NPM](https://registry.npmjs.org/) and install flash.
+`Flash` is currently published at npm registry as  [@uc-engg/flash](https://github.com/urbanclap-engg/flash), so to install it you need to set the registry as [NPM](https://registry.npmjs.org/) and install flash.
 ```
 npm set registry=https://registry.npmjs.org/
 npm install @uc-engg/flash
@@ -521,7 +521,7 @@ block
  ```
  Each type has a particular syntax it follows, for cache both id and options is required 
 
-**Add [@uc-engg/flash]() dependency in the service package.json file**
+**Add [@uc-engg/flash](https://github.com/urbanclap-engg/flash) dependency in the service package.json file**
 
 ##### Step 2
 Populate the options field with **buckets** configurations.  
@@ -593,7 +593,7 @@ We have to create a config file with configs for initialising `redis connection`
  
 ##### Step 2
 
-**Add [@uc-engg/flash]() dependency in the service package.json file**
+**Add [@uc-engg/flash](https://github.com/urbanclap-engg/flash) dependency in the service package.json file**
 Initialize Cache 
 ```js
 import Flash from '@uc-engg/flash'
